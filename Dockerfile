@@ -5,7 +5,7 @@
 #
 #
 
-FROM		ubuntu:12.10
+FROM		ubuntu:latest
 MAINTAINER	Guillaume J. Charmes <guillaume@charmes.net>
 
 RUN		apt-get update -qq
@@ -14,12 +14,13 @@ RUN		apt-get install -qqy automake
 RUN		apt-get install -qqy libcurl4-openssl-dev
 RUN		apt-get install -qqy git
 RUN		apt-get install -qqy make
+RUN             apt-get install build-essential -y
 
-RUN		git clone https://github.com/pooler/cpuminer
+RUN		git clone https://github.com/ghostlander/cpuminer-neoscrypt.git
 
-RUN		cd cpuminer && ./autogen.sh
-RUN		cd cpuminer && ./configure CFLAGS="-O3"
-RUN		cd cpuminer && make
+RUN		cd cpuminer-neoscrypt && ./autogen.sh
+RUN		cd cpuminer-neoscrypt && ./configure CFLAGS="-O3"
+RUN		cd cpuminer-neoscrypt && make
 
-WORKDIR		/cpuminer
+WORKDIR		/cpuminer-neoscrypt
 ENTRYPOINT	["./minerd"]
